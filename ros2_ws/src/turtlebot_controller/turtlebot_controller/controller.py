@@ -22,6 +22,7 @@ import termios  # Import POSIX terminal control for raw keyboard input handling
 import tty  # Import terminal handling module for character-based input
 import select  # Import I/O multiplexing to check for input availability
 from turtlebot_controller.sensor import TurtleBotSensors, CustomDistanceSensor  # Import the sensor classes
+import threading  # Import threading module for running nodes in separate threads
 
 class TurtleBotKeyboardController(Node):
     """
@@ -54,10 +55,13 @@ class TurtleBotKeyboardController(Node):
         Reads a single character from keyboard input without requiring Enter key press.
         Uses raw terminal settings to capture key events immediately.
         """
-        tty.setraw(sys.stdin.fileno())  # Set terminal to raw mode for direct character reading
-        select.select([sys.stdin], [], [], 0)  # Check if there is an available key press
-        key = sys.stdin.read(1)  # Read a single character from standard input
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, termios.tcgetattr(sys.stdin))  # Restore terminal settings
+        old_settings = termios.tcgetattr(sys.stdin)  # Save current terminal settings
+        try:
+            tty.setraw(sys.stdin.fileno())  # Set terminal to raw mode for direct character reading
+            select.select([sys.stdin], [], [], 0)  # Check if there is an available key press
+            key = sys.stdin.read(1)  # Read a single character from standard input
+        finally:
+            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)  # Restore terminal settings
         return key  # Return the captured key
 
     def rotate_x(self):
@@ -153,9 +157,15 @@ def main(args=None):
     node = TurtleBotKeyboardController()  # Create an instance of the keyboard controller
     sensor_node = TurtleBotSensors()  # Create an instance of the sensor node
     custom_sensor_node = CustomDistanceSensor()  # Create an instance of the custom sensor node
-    rclpy.spin(sensor_node)  # Spin the sensor node in a separate thread
-    rclpy.spin(custom_sensor_node)  # Spin the custom sensor node in a separate thread
+
+    # Spin the sensor nodes in separate threads
+    sensor_thread = threading.Thread(target=rclpy.spin, args=(sensor_node,), daemon=True)
+    custom_sensor_thread = threading.Thread(target=rclpy.spin, args=(custom_sensor_node,), daemon=True)
+    sensor_thread.start()
+    custom_sensor_thread.start()
+
     node.run()  # Start listening for keyboard inputs and controlling the robot
+
     node.destroy_node()  # Properly destroy the node when done
     sensor_node.destroy_node()  # Properly destroy the sensor node when done
     custom_sensor_node.destroy_node()  # Properly destroy the custom sensor node when done
