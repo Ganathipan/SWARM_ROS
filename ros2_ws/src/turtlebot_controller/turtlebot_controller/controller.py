@@ -21,6 +21,7 @@ import sys  # Import system-specific parameters and functions
 import termios  # Import POSIX terminal control for raw keyboard input handling
 import tty  # Import terminal handling module for character-based input
 import select  # Import I/O multiplexing to check for input availability
+from untitled:Untitled-5 import TurtleBotSensors, CustomDistanceSensor  # Import the sensor classes
 
 class TurtleBotKeyboardController(Node):
     """
@@ -30,6 +31,8 @@ class TurtleBotKeyboardController(Node):
     def __init__(self):
         super().__init__('turtlebot_keyboard_controller')  # Initialize node with a unique name
         self.publisher_ = self.create_publisher(Twist, '/cmd_vel', 10)  # Create a publisher for velocity commands
+        self.sensors = TurtleBotSensors()  # Initialize the sensor integration
+        self.custom_sensor = CustomDistanceSensor()  # Initialize the custom distance sensor
         
         # Display control instructions in the console
         self.get_logger().info(
@@ -56,6 +59,33 @@ class TurtleBotKeyboardController(Node):
         key = sys.stdin.read(1)  # Read a single character from standard input
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, termios.tcgetattr(sys.stdin))  # Restore terminal settings
         return key  # Return the captured key
+
+    def rotate_x(self):
+        """
+        Rotate the TurtleBot around the x-axis.
+        """
+        msg = Twist()
+        msg.angular.x = 0.5  # Set angular velocity for x-axis rotation
+        self.publisher_.publish(msg)
+        self.get_logger().info("🔄 Rotating around x-axis")
+
+    def rotate_y(self):
+        """
+        Rotate the TurtleBot around the y-axis.
+        """
+        msg = Twist()
+        msg.angular.y = 0.5  # Set angular velocity for y-axis rotation
+        self.publisher_.publish(msg)
+        self.get_logger().info("🔄 Rotating around y-axis")
+
+    def rotate_z(self):
+        """
+        Rotate the TurtleBot around the z-axis.
+        """
+        msg = Twist()
+        msg.angular.z = 0.5  # Set angular velocity for z-axis rotation
+        self.publisher_.publish(msg)
+        self.get_logger().info("🔄 Rotating around z-axis")
 
     def run(self):
         """
@@ -89,6 +119,12 @@ class TurtleBotKeyboardController(Node):
                     msg.angular.z = 0.0  # Set angular speed to zero
                     self.publisher_.publish(msg)  # Publish stop command
                     return  # Exit the function
+                elif key == 'x':  # Rotate around x-axis
+                    self.rotate_x()
+                elif key == 'y':  # Rotate around y-axis
+                    self.rotate_y()
+                elif key == 'z':  # Rotate around z-axis
+                    self.rotate_z()
                 else:
                     self.turn = 0.0  # Reset turn value if no left/right key is pressed
 
@@ -115,8 +151,14 @@ def main(args=None):
     """
     rclpy.init(args=args)  # Initialize ROS 2 communication
     node = TurtleBotKeyboardController()  # Create an instance of the keyboard controller
+    sensor_node = TurtleBotSensors()  # Create an instance of the sensor node
+    custom_sensor_node = CustomDistanceSensor()  # Create an instance of the custom sensor node
+    rclpy.spin(sensor_node)  # Spin the sensor node in a separate thread
+    rclpy.spin(custom_sensor_node)  # Spin the custom sensor node in a separate thread
     node.run()  # Start listening for keyboard inputs and controlling the robot
     node.destroy_node()  # Properly destroy the node when done
+    sensor_node.destroy_node()  # Properly destroy the sensor node when done
+    custom_sensor_node.destroy_node()  # Properly destroy the custom sensor node when done
     rclpy.shutdown()  # Shutdown ROS 2 to clean up resources
 
 
