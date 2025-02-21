@@ -12,3 +12,4 @@ test/test_flake8.py
 test/test_pep257.py
 turtlebot_controller/__init__.py
 turtlebot_controller/controller.py
+turtlebot_controller/sensor.py

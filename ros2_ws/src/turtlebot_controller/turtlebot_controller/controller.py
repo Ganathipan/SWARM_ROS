@@ -21,7 +21,7 @@ import sys  # Import system-specific parameters and functions
 import termios  # Import POSIX terminal control for raw keyboard input handling
 import tty  # Import terminal handling module for character-based input
 import select  # Import I/O multiplexing to check for input availability
-from untitled:Untitled-5 import TurtleBotSensors, CustomDistanceSensor  # Import the sensor classes
+from turtlebot_controller.sensor import TurtleBotSensors, CustomDistanceSensor  # Import the sensor classes
 
 class TurtleBotKeyboardController(Node):
     """
