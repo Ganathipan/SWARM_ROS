@@ -1,0 +1,23 @@
+[0.485s] Invoking command in '/home/ganathipan/ros2_ws/src/turtlebot_controller': PYTHONPATH=/home/ganathipan/ros2_ws/build/turtlebot_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ganathipan/ros2_ws/install/turtlebot_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/turtlebot_controller build --build-base /home/ganathipan/ros2_ws/build/turtlebot_controller/build install --record /home/ganathipan/ros2_ws/build/turtlebot_controller/install.log --install-scripts $base/lib/turtlebot_controller --single-version-externally-managed
+[0.645s] running egg_info
+[0.645s] writing ../../build/turtlebot_controller/turtlebot_controller.egg-info/PKG-INFO
+[0.646s] writing dependency_links to ../../build/turtlebot_controller/turtlebot_controller.egg-info/dependency_links.txt
+[0.646s] writing entry points to ../../build/turtlebot_controller/turtlebot_controller.egg-info/entry_points.txt
+[0.646s] writing requirements to ../../build/turtlebot_controller/turtlebot_controller.egg-info/requires.txt
+[0.646s] writing top-level names to ../../build/turtlebot_controller/turtlebot_controller.egg-info/top_level.txt
+[0.680s] reading manifest file '../../build/turtlebot_controller/turtlebot_controller.egg-info/SOURCES.txt'
+[0.681s] writing manifest file '../../build/turtlebot_controller/turtlebot_controller.egg-info/SOURCES.txt'
+[0.681s] running build
+[0.681s] running build_py
+[0.681s] copying turtlebot_controller/controller.py -> /home/ganathipan/ros2_ws/build/turtlebot_controller/build/lib/turtlebot_controller
+[0.681s] running install
+[0.682s] running install_lib
+[0.683s] copying /home/ganathipan/ros2_ws/build/turtlebot_controller/build/lib/turtlebot_controller/controller.py -> /home/ganathipan/ros2_ws/install/turtlebot_controller/lib/python3.8/site-packages/turtlebot_controller
+[0.683s] byte-compiling /home/ganathipan/ros2_ws/install/turtlebot_controller/lib/python3.8/site-packages/turtlebot_controller/controller.py to controller.cpython-38.pyc
+[0.684s] running install_egg_info
+[0.686s] removing '/home/ganathipan/ros2_ws/install/turtlebot_controller/lib/python3.8/site-packages/turtlebot_controller-0.0.0-py3.8.egg-info' (and everything under it)
+[0.686s] Copying ../../build/turtlebot_controller/turtlebot_controller.egg-info to /home/ganathipan/ros2_ws/install/turtlebot_controller/lib/python3.8/site-packages/turtlebot_controller-0.0.0-py3.8.egg-info
+[0.687s] running install_scripts
+[0.707s] Installing controller script to /home/ganathipan/ros2_ws/install/turtlebot_controller/lib/turtlebot_controller
+[0.707s] writing list of installed files to '/home/ganathipan/ros2_ws/build/turtlebot_controller/install.log'
+[0.727s] Invoked command in '/home/ganathipan/ros2_ws/src/turtlebot_controller' returned '0': PYTHONPATH=/home/ganathipan/ros2_ws/build/turtlebot_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ganathipan/ros2_ws/install/turtlebot_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/turtlebot_controller build --build-base /home/ganathipan/ros2_ws/build/turtlebot_controller/build install --record /home/ganathipan/ros2_ws/build/turtlebot_controller/install.log --install-scripts $base/lib/turtlebot_controller --single-version-externally-managed
