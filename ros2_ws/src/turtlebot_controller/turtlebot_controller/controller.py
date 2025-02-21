@@ -10,8 +10,8 @@ Dependencies:
 - geometry_msgs.msg: Contains the Twist message type for velocity control
 - sys, termios, tty, select: Used for reading keyboard input in real-time
 
-Author: [Your Name]
-Date: [Your Date]
+Author: S. Ganathipan
+Date: 21/02/2025
 """
 
 import rclpy  # Import ROS 2 client library for Python
